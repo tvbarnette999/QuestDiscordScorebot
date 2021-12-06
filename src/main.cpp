@@ -41,6 +41,9 @@ static std::string selectedLevelName;
 static std::string selectedLevelAuthor;
 static std::string selectedLevelSongAuthor;
 
+std::string URL;
+int userId;
+
 
 // Converts the int representing an IBeatmapDifficulty into a string
 std::string difficultyToString(BeatmapDifficulty difficulty)  {
@@ -80,6 +83,7 @@ void processResults(SinglePlayerLevelSelectionFlowCoordinator* self, LevelComple
     rapidjson::Document doc;
     rapidjson::Document::AllocatorType& alloc = doc.GetAllocator();
     doc.SetObject();
+    doc.AddMember("userId", userId, alloc);
     doc.AddMember("levelId", selectedLevelId, alloc);
     doc.AddMember("songName", selectedLevelName, alloc);
     doc.AddMember("levelAuthor", selectedLevelAuthor, alloc);
@@ -116,7 +120,7 @@ void processResults(SinglePlayerLevelSelectionFlowCoordinator* self, LevelComple
     std::string body = buffer.GetString();
     getLogger().info("Score Submit Body: %s", body.c_str()); 
     
-    auto webRequest2 = UnityEngine::Networking::UnityWebRequest::New_ctor(il2cpp_utils::newcsstr("http://192.168.86.207:8081/score"), il2cpp_utils::newcsstr("POST"), 
+    auto webRequest2 = UnityEngine::Networking::UnityWebRequest::New_ctor(il2cpp_utils::newcsstr(URL), il2cpp_utils::newcsstr("POST"), 
             UnityEngine::Networking::DownloadHandlerBuffer::New_ctor(), 
             UnityEngine::Networking::UploadHandlerRaw::New_ctor(System::Text::Encoding::get_ASCII()->GetBytes(il2cpp_utils::newcsstr(body))));
 
@@ -160,6 +164,27 @@ Logger& getLogger() {
     return *logger;
 }
 
+void saveDefaultConfig() {
+    getLogger().info("Creating config file . . .");
+    ConfigDocument& config = getConfig().config;
+    auto& alloc = config.GetAllocator();
+    // If the config has already been created, don't overwrite it
+    if(config.HasMember("submitData")) {
+        getLogger().info("Config file already exists");
+        return;
+    }
+    config.RemoveAllMembers();
+    config.SetObject();
+    // Create the sections of the config file for each type of presence
+    rapidjson::Value submitData(rapidjson::kObjectType);
+    submitData.AddMember("userId", 12345, alloc);
+    submitData.AddMember("url",  "http://192.168.86.207:8081/score", alloc);
+    config.AddMember("submitData", submitData, alloc);
+
+    getConfig().Write();
+    getLogger().info("Config file created");
+}
+
 // Called at the early stages of game loading
 extern "C" void setup(ModInfo& info) {
     info.id = ID;
@@ -167,12 +192,20 @@ extern "C" void setup(ModInfo& info) {
     modInfo = info;
 	
     getConfig().Load(); // Load the config file
+    saveDefaultConfig();
+    
     getLogger().info("Completed setup!");
 }
 
 // Called later on in the game loading - a good time to install function hooks
 extern "C" void load() {
     il2cpp_functions::Init();    
+    
+    ConfigDocument& config = getConfig().config;
+    URL = config["submitData"]["url"].GetString();
+    userId = config["submitData"]["userId"].GetInt();
+    getLogger().info("Discord Config: %s %d", URL.c_str(), userId);
+    
     getLogger().info("Installing hooks...");
     // Install our hooks 
     INSTALL_HOOK(getLogger(), ProcessResultsSolo);
