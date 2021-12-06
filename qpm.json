@@ -1,0 +1,38 @@
+{
+  "sharedDir": "shared",
+  "dependenciesDir": "extern",
+  "info": {
+    "name": "Quest Discord Scorebot",
+    "id": "quest-discord-scorebot",
+    "version": "0.1.0",
+    "url": null,
+    "additionalData": {}
+  },
+  "dependencies": [
+    {
+      "id": "codegen",
+      "versionRange": "=0.12.5",
+      "additionalData": {}
+    },
+    {
+      "id": "codegen",
+      "versionRange": "=0.12.5",
+      "additionalData": {}
+    },
+    {
+      "id": "libil2cpp",
+      "versionRange": "*",
+      "additionalData": {}
+    },
+    {
+      "id": "beatsaber-hook",
+      "versionRange": "=2.2.5",
+      "additionalData": {
+        "extraFiles": [
+          "src/inline-hook"
+        ]
+      }
+    }
+  ],
+  "additionalData": {}
+}
