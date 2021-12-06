@@ -16,18 +16,10 @@
 #include "GlobalNamespace/StandardLevelDetailView.hpp"
 #include "GlobalNamespace/IPreviewBeatmapLevel.hpp"
 
-
-
 #include "extern/beatsaber-hook/shared/utils/typedefs.h"
 #include "extern/beatsaber-hook/shared/utils/byref.hpp"
 
 #include "extern/beatsaber-hook/shared/config/rapidjson-utils.hpp"
-
-// #include "GlobalNamespace/PersistentScriptableObject.hpp"
-// #include "extern/beatsaber-hook/shared/utils/il2cpp-utils-methods.hpp"
-// #include "extern/beatsaber-hook/shared/utils/il2cpp-utils-properties.hpp"
-// #include "extern/beatsaber-hook/shared/utils/il2cpp-utils-fields.hpp"
-// #include "extern/beatsaber-hook/shared/utils/utils.h"
 #include "extern/libil2cpp/il2cpp/libil2cpp/utils/StringUtils.h"
 
 
