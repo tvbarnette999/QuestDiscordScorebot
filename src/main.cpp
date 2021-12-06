@@ -88,14 +88,40 @@ void processResults(SinglePlayerLevelSelectionFlowCoordinator* self, LevelComple
     rapidjson::Document doc;
     rapidjson::Document::AllocatorType& alloc = doc.GetAllocator();
     doc.SetObject();
-    doc.AddMember("songHash", selectedLevelId, alloc);
+    doc.AddMember("levelId", selectedLevelId, alloc);
     doc.AddMember("songName", selectedLevelName, alloc);
+    doc.AddMember("levelAuthor", selectedLevelAuthor, alloc);
+    doc.AddMember("songAuthor", selectedLevelSongAuthor, alloc);
     doc.AddMember("difficulty", diff, alloc);
+    doc.AddMember("difficultyRank", difficultyBeatmap->get_difficultyRank(), alloc);
+    doc.AddMember("difficultyRaw", difficultyBeatmap->get_difficulty().value, alloc);
     doc.AddMember("score", levelCompletionResults->rawScore, alloc);
+    doc.AddMember("modifiedScore", levelCompletionResults->modifiedScore, alloc);
+    // TODO modifiers
+    doc.AddMember("fullCombo", levelCompletionResults->fullCombo, alloc);
+    doc.AddMember("leftSaberDistance", levelCompletionResults->leftSaberMovementDistance, alloc);
+    doc.AddMember("leftHandDistance", levelCompletionResults->leftHandMovementDistance, alloc);
+    doc.AddMember("rightSaberDistance", levelCompletionResults->rightSaberMovementDistance, alloc);
+    doc.AddMember("rightHandDistance", levelCompletionResults->rightHandMovementDistance, alloc);
+    doc.AddMember("goodCuts", levelCompletionResults->goodCutsCount, alloc);
+    doc.AddMember("badCuts", levelCompletionResults->badCutsCount, alloc);
+    doc.AddMember("missed", levelCompletionResults->missedCount, alloc);
+    doc.AddMember("notGood", levelCompletionResults->notGoodCount, alloc);
+    doc.AddMember("ok", levelCompletionResults->okCount, alloc);
+    doc.AddMember("averageCutScore", levelCompletionResults->averageCutScore, alloc);
+    doc.AddMember("maxCutScore", levelCompletionResults->maxCutScore, alloc);
+    doc.AddMember("averageCutDistanceRawScore", levelCompletionResults->averageCutDistanceRawScore, alloc);
+    doc.AddMember("maxCombo", levelCompletionResults->maxCombo, alloc);
+    doc.AddMember("minDirDeviation", levelCompletionResults->minDirDeviation, alloc);
+    doc.AddMember("maxDirDeviation", levelCompletionResults->maxDirDeviation, alloc);
+    doc.AddMember("averageDirDeviation", levelCompletionResults->averageDirDeviation, alloc);
+    doc.AddMember("minTimeDeviation", levelCompletionResults->minTimeDeviation, alloc);
+    doc.AddMember("maxTimeDeviation", levelCompletionResults->maxTimeDeviation, alloc);
+    doc.AddMember("averageTimeDeviation", levelCompletionResults->averageTimeDeviation, alloc);
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);    
     doc.Accept(writer);
-    std::string body = buffer.GetString()
+    std::string body = buffer.GetString();
     getLogger().info("Score Submit Body: %s", body.c_str()); 
     
     auto webRequest2 = UnityEngine::Networking::UnityWebRequest::New_ctor(il2cpp_utils::newcsstr("http://192.168.86.207:8081/score"), il2cpp_utils::newcsstr("POST"), 
