@@ -42,7 +42,7 @@ static std::string selectedLevelAuthor;
 static std::string selectedLevelSongAuthor;
 
 std::string URL;
-int userId;
+unsigned long userId;
 
 
 // Converts the int representing an IBeatmapDifficulty into a string
@@ -154,7 +154,6 @@ MAKE_HOOK_MATCH(StandardLevelDetailView_RefreshContent, &StandardLevelDetailView
 // Loads the config from disk using our modInfo, then returns it for use
 Configuration& getConfig() {
     static Configuration config(modInfo);
-    config.Load();
     return config;
 }
 
@@ -169,6 +168,7 @@ void saveDefaultConfig() {
     ConfigDocument& config = getConfig().config;
     auto& alloc = config.GetAllocator();
     // If the config has already been created, don't overwrite it
+   
     if(config.HasMember("submitData")) {
         getLogger().info("Config file already exists");
         return;
@@ -201,10 +201,11 @@ extern "C" void setup(ModInfo& info) {
 extern "C" void load() {
     il2cpp_functions::Init();    
     
+    // MUST BE IN UNIX_STYLE LINE ENDINGS!
     ConfigDocument& config = getConfig().config;
     URL = config["submitData"]["url"].GetString();
-    userId = config["submitData"]["userId"].GetInt();
-    getLogger().info("Discord Config: %s %d", URL.c_str(), userId);
+    userId = config["submitData"]["userId"].GetUint();
+    getLogger().info("Discord Config: %s %ld", URL.c_str(), userId);
     
     getLogger().info("Installing hooks...");
     // Install our hooks 
