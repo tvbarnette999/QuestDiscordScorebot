@@ -8,13 +8,10 @@ Install Instructions:
 1. [Mod Beat Saber with BMBF](https://bsmg.wiki/quest-modding.html)
 2. Open the BMBF page on your computer from `http://<Quest IP>:50000`
 3. Drag the `.qmod` file into the BMBF window
-4. Sync Beat Saber
-5. Launch Beat Saber (to create default config file)
-6. Quit Beat Saber
-7. Using SideQuest, navigate to `ModData/com.beatgames.beatsaber/Configs`
-8. Download the file `quest-discord-scorebot.json`
-9. Edit it based on config from Discord server.
-10. Delete it from the Quest and re-add the edited version
+4. Use `/config` in the Discord server and the bot will hand you a config file
+5. Using SideQuest, add the config file to `ModData/com.beatgames.beatsaber/Configs`
+6. In BMBF Sync Beat Saber
+7. Launch Beat Saber from BMBF
 
 
 ## Credits
