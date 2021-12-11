@@ -2,7 +2,7 @@
 
 Quest Mod to integrate with a Discord Bot to notify on broken high score
 
-Download [here](https://github.com/tvbarnette999/QuestDiscordScorebot/releases/download/v0.1.0/quest-discord-scorebot_v0.1.0.qmod)
+Download [here](https://github.com/tvbarnette999/QuestDiscordScorebot/releases/latest)
 
 Install Instructions:
 1. [Mod Beat Saber with BMBF](https://bsmg.wiki/quest-modding.html)
