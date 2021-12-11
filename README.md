@@ -1,6 +1,6 @@
 # Quest Discord Scorebot
 
-Discord bot to notify friends of broken high score
+Quest Mod to integrate with a Discord Bot to notify on broken high score
 
 Download [here](https://github.com/tvbarnette999/QuestDiscordScorebot/releases/download/v0.1.0/quest-discord-scorebot_v0.1.0.qmod)
 
