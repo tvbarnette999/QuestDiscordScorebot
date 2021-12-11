@@ -64,7 +64,7 @@ std::string difficultyToString(BeatmapDifficulty difficulty)  {
 
 
 void processResults(SinglePlayerLevelSelectionFlowCoordinator* self, LevelCompletionResults* levelCompletionResults, IDifficultyBeatmap* difficultyBeatmap, GameplayModifiers* gameplayModifiers, bool practice) {
-    if (levelCompletionResults->levelEndAction.value != 0 || levelCompletionResults->levelEndStateType.value != 1){
+    if (practice || levelCompletionResults->levelEndAction.value != 0 || levelCompletionResults->levelEndStateType.value != 1){
         getLogger().info("Level not cleared.");
         return;
     }
