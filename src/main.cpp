@@ -42,7 +42,7 @@ static std::string selectedLevelAuthor;
 static std::string selectedLevelSongAuthor;
 
 std::string URL;
-unsigned long userId;
+std::string userId;
 
 
 // Converts the int representing an IBeatmapDifficulty into a string
@@ -177,7 +177,7 @@ void saveDefaultConfig() {
     config.SetObject();
     // Create the sections of the config file for each type of presence
     rapidjson::Value submitData(rapidjson::kObjectType);
-    submitData.AddMember("userId", 12345, alloc);
+    submitData.AddMember("userId", "12345", alloc);
     submitData.AddMember("url",  "http://192.168.86.207:8081/score", alloc);
     config.AddMember("submitData", submitData, alloc);
 
@@ -204,8 +204,8 @@ extern "C" void load() {
     // MUST BE IN UNIX_STYLE LINE ENDINGS!
     ConfigDocument& config = getConfig().config;
     URL = config["submitData"]["url"].GetString();
-    userId = config["submitData"]["userId"].GetUint();
-    getLogger().info("Discord Config: %s %ld", URL.c_str(), userId);
+    userId = config["submitData"]["userId"].GetString();
+    getLogger().info("Discord Config: %s %s", URL.c_str(), userId.c_str());
     
     getLogger().info("Installing hooks...");
     // Install our hooks 
