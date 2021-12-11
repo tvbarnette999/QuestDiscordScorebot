@@ -1,6 +1,21 @@
 # Quest Discord Scorebot
 
-Discord bot to nofity friends of broken high score
+Quest Mod to integrate with a Discord Bot to notify on broken high score
+
+Download [here](https://github.com/tvbarnette999/QuestDiscordScorebot/releases/download/v0.1.0/quest-discord-scorebot_v0.1.0.qmod)
+
+Install Instructions:
+1. [Mod Beat Saber with BMBF](https://bsmg.wiki/quest-modding.html)
+2. Open the BMBF page on your computer from `http://<Quest IP>:50000`
+3. Drag the `.qmod` file into the BMBF window
+4. Sync Beat Saber
+5. Launch Beat Saber (to create default config file)
+6. Quit Beat Saber
+7. Using SideQuest, navigate to `ModData/com.beatgames.beatsaber/Configs`
+8. Download the file `quest-discord-scorebot.json`
+9. Edit it based on config from Discord server.
+10. Delete it from the Quest and re-add the edited version
+
 
 ## Credits
 
